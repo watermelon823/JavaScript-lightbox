@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lightbox开发</title>
+	<link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+	class="js-lightbox" 表示这个元素要启用lightbox<br>
+	data-role="lightbox" 表示这个元素要启用lightbox<br>
+	data-source="images/2-1.jpg" 原图的地址<br>
+	data-group = "group-2"  标识当前是否属于一个组别<br>
+	data-id = "this" 图片的唯一标识<br>
+	data-caption = "ououou" 当前图片的描述文字<br>
+
+
+
+
+<H1>1组图片</H1>
+<div>
+	<img class="js-lightbox" 
+	data-role="lightbox" 
+	data-source="images/1-1.jpg" 
+	src="images/1-1.jpg"
+	data-group = "group-1"
+	data-id = "are"
+	data-caption = "eheheh"
+    width="100" height="100">
+
+    <img class="js-lightbox" data-role="lightbox" data-source="images/1-2.jpg" src="images/1-2.jpg" data-group = "group-1" data-id = "you"
+	data-caption = "hahaha" width="100" height="100">
+
+	<img class="js-lightbox" data-role="lightbox" data-source="images/1-3.jpg" src="images/1-3.jpg" data-group = "group-1" data-id = "ok"
+	data-caption = "hihihi" width="100" height="100">
+</div>
+
+<H1>2组图片</H1>
+<div>
+	<img class="js-lightbox" 
+	data-role="lightbox" 
+	data-source="images/2-1.jpg" 
+	src="images/2-1.jpg"
+	data-group = "group-2"
+	data-id = "this"
+	data-caption = "ououou"
+    width="100" height="100">
+
+    
+</div>
+<!--遮罩-->
+	<!--<div id="G-lightbox-mask"></div>-->
+<!--弹出层-->
+	<!--<div id="G-lightbox-popup">
+		<div class="lightbox-pic-view">
+			<span class="lightbox-btn lightbox-prev-btn lightbox-prev-btn-show"></span>
+			<img class="lightbox-image" src="images/2-2.jpg" width="100%">
+			<span class="lightbox-btn lightbox-next-btn lightbox-next-btn-show"></span>
+		</div>
+		<div class="lightbox-pic-caption">
+			<div class="lightbox-caption-area">
+				<p class="lightbox-pic-desc">图片标题</p>
+				<span class="lightbox-of-index">当前索引： 1 of 4</span>
+			</div>
+			<span class="lightbox-close-btn"></span>
+		</div>
+	</div>-->
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="main.js"></script>
+
+	<script type="text/javascript">
+		$(function(){
+			var lightbox  = new LightBox()
+
+		});
+
+	</script>
+	
+</body>
+</html>
