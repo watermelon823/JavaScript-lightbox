@@ -3,47 +3,46 @@
 	var LightBox = function() {
 		var self = this;
 
-		//创建遮罩和弹出框
+		//create curtain and popup
 		this.popupMask = $('<div id="G-lightbox-mask">');
 		this.popupWin = $('<div id ="G-lightbox-popup">');
 
-		//保存BODY
+		//assign BODY to bodyNode
 		this.bodyNode = $(document.body);
 
-		//渲染剩余的DOM,并且插入到BODY
+		//Render remaining Doms and insert them into body
 		this.renderDOM();
 
-		this.picViewArea = this.popupWin.find("div.lightbox-pic-view");//图片预览区域
-		this.popupPic = this.popupWin.find("img.lightbox-image");//图片
-		this.picCaptionArea = this.popupWin.find("div.lightbox-pic-caption");//图片描述区域
+		this.picViewArea = this.popupWin.find("div.lightbox-pic-view");//picture preview
+		this.popupPic = this.popupWin.find("img.lightbox-image");//picture
+		this.picCaptionArea = this.popupWin.find("div.lightbox-pic-caption");//picture description comment
 		this.nextBtn = this.popupWin.find("span.lightbox-next-btn");
 		this.prevBtn = this.popupWin.find("span.lightbox-prev-btn");
 
-		this.captionText = this.popupWin.find("p.lightbox-pic-desc");//图片表述
-		this.currentIndex  = this.popupWin.find("span.lightbox-of-index");//图片当前索引
-		this.closeBtn = this.popupWin.find("span.lightbox-close-btn");//关闭按钮
+		this.captionText = this.popupWin.find("p.lightbox-pic-desc");//discription
+		this.currentIndex  = this.popupWin.find("span.lightbox-of-index");//current index
+		this.closeBtn = this.popupWin.find("span.lightbox-close-btn");//close button
 
 
-		//准备开发事件委托，获取组数据
+		//receive data for group 
 		this.groupName = null;
-		this.groupData = [];//放置同一组数据
+		this.groupData = [];//keep data from the same group here
 		this.bodyNode.delegate(".js-lightbox,*[data-role=lightbox]",
 			"click",function(e){
-			//阻止事件冒泡
 			e.stopPropagation();
             
             var currentGroupName = $(this).attr("data-group");
             if(currentGroupName != self.groupName){
             	self.groupName = currentGroupName;
-            	//根据当前组名获取同一组数据
+            	//get data from the same group according to the group name
             	self.getGroup();
             };
 
-            //初始化弹出
+            //Initailize pop-up
             self.initPopup($(this));
         });
 
-            //关闭弹出
+            //close popup
             this.popupMask.click(function(){
             	$(this).fadeOut();
             	self.popupWin.fadeOut();
@@ -55,7 +54,7 @@
 
             });
 
-            //绑定上下切换事件
+            //click to change pricture
             this.flag =true;
             this.nextBtn.hover(function(){
             	if(!$(this).hasClass("diabled")&&self.groupData.length>1){
@@ -92,7 +91,7 @@
             	};
             });
 
-            //绑定窗口调整事件
+            //window resize
             var timer= null;
             this. clear = false;
             $(window).resize(function(){
@@ -174,7 +173,6 @@
 			    winWidth = $(window).width(),
 			    winHeight = $(window).height();
 
-			//如果图片的宽高大于；浏览器视口的宽高比例，我就看下是否溢出
 
 			var scale = Math.min(winWidth/(width+10),winHeight/(height+10),1);
 			width = width*scale;
@@ -201,9 +199,9 @@
 				 self.clear =true;
 			});
 
-		//设置描述文字和当前索引
+		//prepate data for text comment and current positio
 		this.captionText.text(this.groupData[this.index].caption);
-		this.currentIndex.text("当前索引： "+(this.index+1)+ " of " +this.groupData.length);
+		this.currentIndex.text("Current Position： "+(this.index+1)+ " of " +this.groupData.length);
 		//this.captionIndex
 
 
@@ -231,9 +229,7 @@
 
 			this.popupPic.hide();
 			this.picCaptionArea.hide();
-			//this.nextBtn.hide(),//我改的
-			//this.prevBtn.hide()//我改的
-
+		
 			this.popupMask.fadeIn();
 
 			var winWidth = $(window).width(),
@@ -256,13 +252,13 @@
 			}).animate({
 				         top:(winHeight - viewHeight)/2
 				     },function(){
-				     	//加载图片
+				     	//Load Picture
 				     	self.loadPicSize(sourceSrc);
 
          
 			         });
 
-			//根据当前点击的元素ID获取在当前组别里面的索引
+			//get index according to id of the elements
 
 			this.index = this.getIndexOf(currentId);
 
@@ -318,11 +314,10 @@
 
 			var self= this;
 
-			//根据当前的组别名称获取页面中所有相同组别的对象
 			var groupList = 
 			this.bodyNode.find("*[data-group="+this.groupName+"]");
 			
-			//清空数组数据
+			//clear
 			self.groupData.length = 0;
 			
 			groupList.each(function(){
@@ -348,14 +343,14 @@
 		               '<div class="lightbox-pic-caption">'+
 			             '<div class="lightbox-caption-area">'+
 				            '<p class="lightbox-pic-desc">hello</p>'+
-				            '<span class="lightbox-of-index">当前索引： 0 of 0</span>'+
+				            '<span class="lightbox-of-index">Current Position： 0 of 0</span>'+
 			             '</div>'+
 			             '<span class="lightbox-close-btn"></span>'+
 		               '</div>';
-		    //插入到this.popupWin
+		    //insert to this.popupWin
 		    this.popupWin.html(strDom);
 
-		    //把遮罩和弹出框插入到BODY
+		    //Insert curtain and popup to body
 		    this.bodyNode.append(this.popupMask,this.popupWin);
 		}
 
